@@ -11,8 +11,8 @@ import joblib
 
 # Initialize DagsHub and MLflow
 dagshub.init(repo_owner='githubshaurya', repo_name='mlops_final', mlflow=True)
-mlflow.set_tracking_uri('http://127.0.0.1:5000/')
-mlflow.set_experiment("Experiment 4")
+mlflow.set_experiment("Experiment 4")  # Name of the experiment in MLflow
+mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_final.mlflow')
 
 # Load and split data
 data = pd.read_csv(r"/mnt/c/NLP_practice/python_learn/MLOps/mlops_final/mlflow_final/water_potability.csv")
