@@ -42,7 +42,7 @@ def save_data(df : pd.DataFrame, filepath: str) -> None:
     
 
 def main():
-    data_filepath = r"https://github.com/githubshaurya/mlops_full/blob/main/water_potability.csv"
+    data_filepath = r"https://raw.githubusercontent.com/githubshaurya/mlops_full/main/water_potability.csv"
     params_filepath = "params.yaml"
     raw_data_path = os.path.join("data","raw")
 # data_path = os.path.join("data","raw")
