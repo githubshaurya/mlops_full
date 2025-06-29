@@ -13,26 +13,17 @@ def load_params(filepath : str) -> float:
     except Exception as e:
         raise Exception(f"Error loading parameters from {filepath}:{e}")
 
-# C:\NLP_practice\python_learn\MLOps\DVC_pipeline\water_potability.csv
-#test_size = yaml.safe_load(open("params.yaml"))["data_collection"]["test_size"]
-
 def load_data(filepath : str) -> pd.DataFrame :
     try:
         return pd.read_csv(filepath)
     except Exception as e:
         raise Exception(f"Error loading data from {filepath} :{e}")
 
-# data = pd.read_csv(r"C:\Users\SFL-3\water_potability.csv")
-
 def split_data(data : pd.DataFrame, test_size: float) -> tuple[pd.DataFrame,pd.DataFrame]:
     try:
         return train_test_split(data, test_size= test_size, random_state=42)
     except Exception as e:
         raise Exception(f"Error splittin data : {e}")
-
-#train_data, test_data = train_test_split(data, test_size= test_size, random_state=42)
-
-
 
 def save_data(df : pd.DataFrame, filepath: str) -> None:
     try:
@@ -42,21 +33,27 @@ def save_data(df : pd.DataFrame, filepath: str) -> None:
     
 
 def main():
-    data_filepath = r"https://raw.githubusercontent.com/githubshaurya/mlflow_final/main/water_potability.csv"
+    # Use local file instead of downloading from GitHub
+    data_filepath = "water_potability.csv"  # Local file in project root
     params_filepath = "params.yaml"
     raw_data_path = os.path.join("data","raw")
-# data_path = os.path.join("data","raw")
+    
     try:
         data = load_data(data_filepath)
         test_size = load_params(params_filepath)
         train_data,test_data = split_data(data, test_size)
 
-        os.makedirs(raw_data_path)
+        os.makedirs(raw_data_path, exist_ok=True)
 
         save_data(train_data,os.path.join(raw_data_path,"train.csv"))
         save_data(test_data, os.path.join(raw_data_path,"test.csv"))
+        
+        print(f"Data split successfully!")
+        print(f"Train data shape: {train_data.shape}")
+        print(f"Test data shape: {test_data.shape}")
+        
     except Exception as e:
         raise Exception(f"An error occurred :{e}")
     
 if __name__ == "__main__":
-    main()
+    main() 
