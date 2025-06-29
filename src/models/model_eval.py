@@ -67,7 +67,7 @@ def save_metrics(metrics: dict, path: str) -> None:
 
 def main():
     # 1. Initialize DagsHub (configures MLflow for this repo)
-    dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full, mlflow=True)
+    dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full", mlflow=True)
 
     # 2. Set MLflow tracking URI before experiments
     mlflow.set_tracking_uri("http://127.0.0.1:5000/")
