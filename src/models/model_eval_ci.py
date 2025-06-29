@@ -6,7 +6,6 @@ import pickle
 import numpy as np
 import pandas as pd
 import joblib
-import dagshub
 import mlflow
 
 from sklearn.metrics import (
@@ -66,20 +65,9 @@ def save_metrics(metrics: dict, path: str) -> None:
 
 
 def main():
-    # Check if running in CI environment
-    is_ci = os.getenv('CI') is not None
-    
-    if not is_ci:
-        # Only initialize DagsHub if not in CI environment
-        try:
-            dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full", mlflow=True)
-        except Exception as e:
-            print(f"Warning: DagsHub initialization failed: {e}")
-    
-    # Set MLflow tracking URI - use DagsHub for CI compatibility
-    mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_full.mlflow')
-
-    # Create or set the experiment
+    # CI-compatible version - no DagsHub authentication required
+    # Use local file system for MLflow tracking in CI
+    mlflow.set_tracking_uri("file:./mlruns")
     mlflow.set_experiment("Final experiment 1")
 
     # Paths
@@ -147,4 +135,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main() 
