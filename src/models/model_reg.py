@@ -62,8 +62,8 @@ def save_json(obj: dict, path: str) -> None:
 
 
 # ─── 1. Initialize DagsHub & MLflow ───────────────────────────────────────────
-dagshub.init(repo_owner="githubshaurya", repo_name="mlops_final", mlflow=True)
-mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_final.mlflow')
+dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full", mlflow=True)
+mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_full.mlflow')
 mlflow.set_experiment("Final experiment 1")
 
 # Fix the path to correctly reference the reports directory from project root

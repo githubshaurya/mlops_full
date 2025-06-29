@@ -9,8 +9,8 @@ import mlflow.sklearn
 from mlflow.tracking import MlflowClient
 
 # Initialize DagsHub
-dagshub.init(repo_owner="githubshaurya", repo_name="mlops_final", mlflow=True)
-mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_final.mlflow')
+dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full", mlflow=True)
+mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_full.mlflow')
 mlflow.set_experiment("Model Registration")
 
 # Load run info
