@@ -69,15 +69,19 @@ def main():
     # Check if running in CI environment
     is_ci = os.getenv('CI') is not None
     
-    if not is_ci:
+    if is_ci:
+        # Use local file system for MLflow tracking in CI
+        print("Running in CI environment - using local MLflow tracking")
+        mlflow.set_tracking_uri("file:./mlruns")
+    else:
         # Only initialize DagsHub if not in CI environment
         try:
             dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full", mlflow=True)
+            mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_full.mlflow')
         except Exception as e:
             print(f"Warning: DagsHub initialization failed: {e}")
-    
-    # Set MLflow tracking URI - use DagsHub for CI compatibility
-    mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_full.mlflow')
+            # Fallback to local tracking
+            mlflow.set_tracking_uri("file:./mlruns")
 
     # Create or set the experiment
     mlflow.set_experiment("Final experiment 1")
