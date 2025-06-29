@@ -18,11 +18,12 @@ from sklearn.metrics import (
 )
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
-dagshub_token = os.getenv('MLOPS_FULL')
-os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
+# Set up DagsHub authentication if token is available
+dagshub_token = os.getenv('MLOPS_FULL')
+if dagshub_token:
+    os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
 
 def load_data(filepath: str) -> pd.DataFrame:
@@ -80,8 +81,13 @@ def main():
         mlflow.set_tracking_uri("file:./mlruns")
     else:
         # Only initialize DagsHub if not in CI environment
-        dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full", mlflow=True)
-        mlflow.set_tracking_uri('http://127.0.0.1:5000/')
+        try:
+            dagshub.init(repo_owner="githubshaurya", repo_name="mlops_full", mlflow=True)
+            mlflow.set_tracking_uri('https://dagshub.com/githubshaurya/mlops_full.mlflow')
+        except Exception as e:
+            print(f"Warning: DagsHub initialization failed: {e}")
+            # Fallback to local tracking
+            mlflow.set_tracking_uri("file:./mlruns")
 
     # Create or set the experiment
     mlflow.set_experiment("Final experiment 1")

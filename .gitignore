@@ -89,3 +89,9 @@ target/
 .mypy_cache/
 /model.pkl
 /metrics.json
+
+# Temporary files and DVC cache
+/tmp/
+*.tmp
+C:\Users\*\AppData\Local\Temp\*
+mlruns/
