@@ -92,7 +92,7 @@ mlflow==3.1.1
 mlflow-skinny==3.1.1
 multidict==6.6.2
 mypy_extensions==1.1.0
-networkx==3.5
+networkx==3.4.2
 numpy==2.3.1
 omegaconf==2.3.0
 opentelemetry-api==1.34.1
